@@ -12,6 +12,7 @@ services:
     expose:
       - "80"
     labels:
+      - "librehost.stack.id=nginx_node" # do not change
       - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}" # do not change
       - "librehost.container.name=${COMPOSE_PROJECT_NAME:?err}_nginx" # do not change
       - "librehost.form.domain=${LIBREHOST_FORM_DOMAIN:?err}"
@@ -38,6 +39,7 @@ services:
     expose:
       - "8080"
     labels:
+      - "librehost.stack.id=nginx_node" # do not change
       - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}" # do not change
       - "librehost.container.name=${COMPOSE_PROJECT_NAME:?err}_node" # do not change
       - "librehost.form.domain=${LIBREHOST_FORM_DOMAIN:?err}"
