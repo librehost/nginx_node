@@ -1,0 +1,59 @@
+version: '3.5'
+services:
+
+  nginx:
+    networks:
+      - reverseproxy
+      - nginx
+    build:
+      context: ./
+      dockerfile: Dockerfile.nginx
+    restart: always
+    expose:
+      - "80"
+    labels:
+      - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}" # do not change
+      - "librehost.container.name=${COMPOSE_PROJECT_NAME:?err}_nginx" # do not change
+      - "librehost.form.domain=${LIBREHOST_FORM_DOMAIN:?err}"
+      # https://docs.traefik.io/configuration/backends/docker/
+       - "traefik.enable=true"
+       - "traefik.backend=${COMPOSE_PROJECT_NAME:?err}_nginx"
+       - "traefik.backend.loadbalancer.stickiness=true"
+       - "traefik.docker.network=reverseproxy"
+       #- "traefik.frontend.passHostHeader=true"
+       - "traefik.${COMPOSE_PROJECT_NAME:?err}_nginx.frontend.passHostHeader=true"
+       - "traefik.${COMPOSE_PROJECT_NAME:?err}_nginx.port=80"
+       - "traefik.${COMPOSE_PROJECT_NAME:?err}_nginx.frontend.rule=Host:${LIBREHOST_FORM_DOMAIN:?err}"
+    #healthcheck:
+      #disable: true # if marked as unhealty reverseproxy will stop. 
+
+  node:
+    depends_on:
+      - nginx
+    build:
+      context: ./
+      dockerfile: Dockerfile.node
+    restart: always
+    expose:
+      - "8080"
+    labels:
+      - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}" # do not change
+      - "librehost.container.name=${COMPOSE_PROJECT_NAME:?err}_node" # do not change
+    networks:
+      - nginx
+    environment:
+      - PORT=8080
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 10s
+      timeout: 30s
+      retries: 3
+      #start_period: 5s
+    command:
+      - start
+
+networks:
+  nginx:
+  reverseproxy:
+    external:
+      name: reverseproxy
