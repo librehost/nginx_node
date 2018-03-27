@@ -16,8 +16,8 @@ services:
       # librehost.stack.id must be equal the name of the repository
       - "librehost.stack.id=nginx_node"
       - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}"
-      - "librehost.stack.config=${LIBREHOST_STACK_CONFIG:?err}"
-      - "librehost.container.name=${COMPOSE_PROJECT_NAME:?err}_nginx"
+      - "librehost.stack.env=${LIBREHOST_STACK_ENV:?err}"
+      - "librehost.stack.container=${COMPOSE_PROJECT_NAME:?err}_nginx"
       # https://docs.traefik.io/configuration/backends/docker/
       - "traefik.enable=true"
       - "traefik.backend=${COMPOSE_PROJECT_NAME:?err}_nginx"
@@ -44,8 +44,8 @@ services:
       # librehost.stack.id must be equal the name of the repository
       - "librehost.stack.id=nginx_node"
       - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}"
-      - "librehost.stack.config=${LIBREHOST_STACK_CONFIG:?err}"
-      - "librehost.container.name=${COMPOSE_PROJECT_NAME:?err}_node"
+      - "librehost.stack.env=${LIBREHOST_STACK_ENV:?err}"
+      - "librehost.stack.container=${COMPOSE_PROJECT_NAME:?err}_node"
     networks:
       - nginx
     environment:
