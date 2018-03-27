@@ -16,6 +16,7 @@ services:
       # librehost.stack.id must be equal the name of the repository
       - "librehost.stack.id=nginx_node"
       - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}"
+      - "librehost.stack.domain=${LIBREHOST_STACK_DOMAIN:?err}"
       - "librehost.stack.env=${LIBREHOST_STACK_ENV:?err}"
       - "librehost.stack.container=${COMPOSE_PROJECT_NAME:?err}_nginx"
       # https://docs.traefik.io/configuration/backends/docker/
@@ -26,7 +27,7 @@ services:
       #- "traefik.frontend.passHostHeader=true"
       - "traefik.${COMPOSE_PROJECT_NAME:?err}_nginx.frontend.passHostHeader=true"
       - "traefik.${COMPOSE_PROJECT_NAME:?err}_nginx.port=80"
-      - "traefik.${COMPOSE_PROJECT_NAME:?err}_nginx.frontend.rule=Host:${LIBREHOST_FORM_DOMAIN:?err}"
+      - "traefik.${COMPOSE_PROJECT_NAME:?err}_nginx.frontend.rule=Host:${LIBREHOST_STACK_DOMAIN:?err}"
     #healthcheck:
       #disable: true # if marked as unhealty reverseproxy will stop. 
 
@@ -44,6 +45,7 @@ services:
       # librehost.stack.id must be equal the name of the repository
       - "librehost.stack.id=nginx_node"
       - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}"
+      - "librehost.stack.domain=${LIBREHOST_STACK_DOMAIN:?err}"
       - "librehost.stack.env=${LIBREHOST_STACK_ENV:?err}"
       - "librehost.stack.container=${COMPOSE_PROJECT_NAME:?err}_node"
     networks:
