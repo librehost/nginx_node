@@ -16,7 +16,7 @@ services:
       - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}" # do not change
       - "librehost.container.name=${COMPOSE_PROJECT_NAME:?err}_nginx" # do not change
       - "librehost.form.domain=${LIBREHOST_FORM_DOMAIN:?err}"
-      - "librehost.form.repo=${LIBREHOST_FORM_DOMAIN:?err}"
+      - "librehost.form.repo=${LIBREHOST_FORM_REPO:?err}"
       # https://docs.traefik.io/configuration/backends/docker/
        - "traefik.enable=true"
        - "traefik.backend=${COMPOSE_PROJECT_NAME:?err}_nginx"
@@ -43,7 +43,7 @@ services:
       - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}" # do not change
       - "librehost.container.name=${COMPOSE_PROJECT_NAME:?err}_node" # do not change
       - "librehost.form.domain=${LIBREHOST_FORM_DOMAIN:?err}"
-      - "librehost.form.repo=${LIBREHOST_FORM_DOMAIN:?err}"
+      - "librehost.form.repo=${LIBREHOST_FORM_REPO:?err}"
     networks:
       - nginx
     environment:
