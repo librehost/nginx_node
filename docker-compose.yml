@@ -12,6 +12,7 @@ services:
     expose:
       - "80"
     labels:
+      # librehost labels must be present on all services
       # librehost.stack.id must be equal the name of the repository
       - "librehost.stack.id=nginx_node"
       - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}"
@@ -40,6 +41,8 @@ services:
     expose:
       - "8080"
     labels:
+      # librehost labels must be present on all services
+      # librehost.stack.id must be equal the name of the repository
       - "librehost.stack.id=nginx_node"
       - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}"
       - "librehost.container.name=${COMPOSE_PROJECT_NAME:?err}_node"
