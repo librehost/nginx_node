@@ -12,9 +12,9 @@ services:
     expose:
       - "80"
     labels:
-      - "librehost.stack.id=nginx_node" # do not change
-      - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}" # do not change
-      - "librehost.container.name=${COMPOSE_PROJECT_NAME:?err}_nginx" # do not change
+      - "librehost.stack.id=nginx_node"
+      - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}"
+      - "librehost.container.name=${COMPOSE_PROJECT_NAME:?err}_nginx"
       - "librehost.form.domain=${LIBREHOST_FORM_DOMAIN:?err}"
       - "librehost.form.repo=${LIBREHOST_FORM_REPO:?err}"
       # https://docs.traefik.io/configuration/backends/docker/
@@ -39,9 +39,9 @@ services:
     expose:
       - "8080"
     labels:
-      - "librehost.stack.id=nginx_node" # do not change
-      - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}" # do not change
-      - "librehost.container.name=${COMPOSE_PROJECT_NAME:?err}_node" # do not change
+      - "librehost.stack.id=nginx_node"
+      - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}"
+      - "librehost.container.name=${COMPOSE_PROJECT_NAME:?err}_node"
       - "librehost.form.domain=${LIBREHOST_FORM_DOMAIN:?err}"
       - "librehost.form.repo=${LIBREHOST_FORM_REPO:?err}"
     networks:
