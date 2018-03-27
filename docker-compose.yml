@@ -45,7 +45,7 @@ services:
       - "librehost.stack.id=nginx_node"
       - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}"
       - "librehost.stack.config=${LIBREHOST_STACK_CONFIG:?err}"
-      - "librehost.container.name=${COMPOSE_PROJECT_NAME:?err}_nginx"
+      - "librehost.container.name=${COMPOSE_PROJECT_NAME:?err}_node"
     networks:
       - nginx
     environment:
