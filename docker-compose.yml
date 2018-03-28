@@ -8,7 +8,7 @@ services:
       context: ./
       dockerfile: Dockerfile.node
       args:
-        VERSION: ${LIBREHOST_SERVICE_1_IMAGE_VERSION}
+        VERSION: ${LIBREHOST_SERVICE_1_IMAGE_VERSION:-8.10}
     restart: always
     expose:
       - "8080"
