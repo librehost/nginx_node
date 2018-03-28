@@ -1,6 +1,39 @@
 version: '3.5'
 services:
 
+  node:
+    depends_on:
+      - nginx
+    build:
+      context: ./
+      dockerfile: Dockerfile.node
+      args:
+        IMAGE_VERSION: ${LIBREHOST_SERVICE_1_IMAGE_VERSION}
+    restart: always
+    expose:
+      - "8080"
+    labels:
+      # librehost labels must be present on all services
+      # librehost.stack.id must be equal the name of the repository
+      - "librehost.stack.id=nginx_node"
+      - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}"
+      - "librehost.stack.domain=${LIBREHOST_STACK_DOMAIN:?err}"
+      - "librehost.stack.env=${LIBREHOST_STACK_ENV:?err}"
+      - "librehost.stack.container=${COMPOSE_PROJECT_NAME:?err}_node"
+      - "librehost.stack.container-number=1"
+    networks:
+      - nginx
+    environment:
+      - PORT=8080
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 10s
+      timeout: 30s
+      retries: 3
+      #start_period: 5s
+    command:
+      - start
+
   nginx:
     networks:
       - reverseproxy
@@ -19,7 +52,7 @@ services:
       - "librehost.stack.domain=${LIBREHOST_STACK_DOMAIN:?err}"
       - "librehost.stack.env=${LIBREHOST_STACK_ENV:?err}"
       - "librehost.stack.container=${COMPOSE_PROJECT_NAME:?err}_nginx"
-      - "librehost.stack.container-number=1"
+      - "librehost.stack.container-number=2"
       # https://docs.traefik.io/configuration/backends/docker/
       - "traefik.enable=true"
       - "traefik.backend=${COMPOSE_PROJECT_NAME:?err}_nginx"
@@ -31,39 +64,6 @@ services:
       - "traefik.${COMPOSE_PROJECT_NAME:?err}_nginx.frontend.rule=Host:${LIBREHOST_STACK_DOMAIN:?err}"
     #healthcheck:
       #disable: true # if marked as unhealty reverseproxy will stop. 
-
-  node:
-    depends_on:
-      - nginx
-    build:
-      context: ./
-      dockerfile: Dockerfile.node
-      args:
-        IMAGE_VERSION: ${LIBREHOST_SERVICE_2_IMAGE_VERSION}
-    restart: always
-    expose:
-      - "8080"
-    labels:
-      # librehost labels must be present on all services
-      # librehost.stack.id must be equal the name of the repository
-      - "librehost.stack.id=nginx_node"
-      - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}"
-      - "librehost.stack.domain=${LIBREHOST_STACK_DOMAIN:?err}"
-      - "librehost.stack.env=${LIBREHOST_STACK_ENV:?err}"
-      - "librehost.stack.container=${COMPOSE_PROJECT_NAME:?err}_node"
-      - "librehost.stack.container-number=2"
-    networks:
-      - nginx
-    environment:
-      - PORT=8080
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080"]
-      interval: 10s
-      timeout: 30s
-      retries: 3
-      #start_period: 5s
-    command:
-      - start
 
 networks:
   nginx:
