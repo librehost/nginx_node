@@ -19,6 +19,7 @@ services:
       - "librehost.stack.domain=${LIBREHOST_STACK_DOMAIN:?err}"
       - "librehost.stack.env=${LIBREHOST_STACK_ENV:?err}"
       - "librehost.stack.container=${COMPOSE_PROJECT_NAME:?err}_nginx"
+      - "librehost.stack.container-number=1"
       # https://docs.traefik.io/configuration/backends/docker/
       - "traefik.enable=true"
       - "traefik.backend=${COMPOSE_PROJECT_NAME:?err}_nginx"
@@ -48,6 +49,7 @@ services:
       - "librehost.stack.domain=${LIBREHOST_STACK_DOMAIN:?err}"
       - "librehost.stack.env=${LIBREHOST_STACK_ENV:?err}"
       - "librehost.stack.container=${COMPOSE_PROJECT_NAME:?err}_node"
+      - "librehost.stack.container-number=2"
     networks:
       - nginx
     environment:
