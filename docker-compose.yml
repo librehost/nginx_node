@@ -54,7 +54,7 @@ services:
       - "librehost.stack.json=${LIBREHOST_STACK_JSON:?err}"
       - "librehost.stack.service.number=2"
       - "librehost.stack.service.name=${COMPOSE_PROJECT_NAME:?err}_nginx"
-      - "librehost.stack.service.version=${LIBREHOST_STACK_SERVICE_2_VERSION:-stable}"
+      - "librehost.stack.service.version=${LIBREHOST_STACK_SERVICE_2_VERSION:-stable-alpine}"
       # https://docs.traefik.io/configuration/backends/docker/
       - "traefik.enable=true"
       - "traefik.backend=${COMPOSE_PROJECT_NAME:?err}_nginx"
