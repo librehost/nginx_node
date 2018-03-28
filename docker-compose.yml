@@ -65,7 +65,7 @@ services:
       #- "traefik.frontend.passHostHeader=true"
       - "traefik.${COMPOSE_PROJECT_NAME:?err}_nginx.frontend.passHostHeader=true"
       - "traefik.${COMPOSE_PROJECT_NAME:?err}_nginx.port=80"
-      - "traefik.${COMPOSE_PROJECT_NAME:?err}_nginx.frontend.rule=Host:${LIBREHOST_STACK_DOMAIN:?err}"
+      - "traefik.${COMPOSE_PROJECT_NAME:?err}_nginx.frontend.rule=Host:${LIBREHOST_STACK_DOMAINS:?err}"
     #healthcheck:
       #disable: true # if marked as unhealty reverseproxy will stop. 
 
