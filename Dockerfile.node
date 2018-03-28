@@ -1,6 +1,6 @@
 # Keep common instructions at the top of the Dockerfile to utilize the cache.
-ARG NODE_VERSION=8.10
-FROM node:${NODE_VERSION}
+ARG IMAGE_VERSION=8.10
+FROM node:${IMAGE_VERSION}
 
 WORKDIR /usr/src/app
 
