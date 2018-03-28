@@ -38,6 +38,8 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile.node
+      args:
+        IMAGE_VERSION: ${LIBREHOST_SERVICE_2_IMAGE_VERSION}
     restart: always
     expose:
       - "8080"
