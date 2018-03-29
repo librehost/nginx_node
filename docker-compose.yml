@@ -8,20 +8,20 @@ services:
       context: ./
       dockerfile: Dockerfile.node
       args:
-        VERSION: ${LIBREHOST_STACK_SERVICE_1_VERSION:-8.10}
+        VERSION: ${SHIPY_STACK_SERVICE_1_VERSION:-8.10}
     restart: always
     expose:
       - "8080"
     labels:
-      # librehost labels must be present on all services
-      # librehost.stack.id must be equal the name of the repository
-      - "librehost.stack.id=nodenginx"
-      - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}"
-      - "librehost.stack.domains=${LIBREHOST_STACK_DOMAINS:?err}"
-      - "librehost.stack.json=${LIBREHOST_STACK_JSON:?err}"
-      - "librehost.stack.service.number=1"
-      - "librehost.stack.service.name=${COMPOSE_PROJECT_NAME:?err}_node"
-      - "librehost.stack.service.version=${LIBREHOST_STACK_SERVICE_1_VERSION:-8.10}"
+      # shipy labels must be present on all services
+      # shipy.stack.id must be equal the name of the repository
+      - "shipy.stack.id=nodenginx"
+      - "shipy.stack.name=${COMPOSE_PROJECT_NAME:?err}"
+      - "shipy.stack.domains=${SHIPY_STACK_DOMAINS:?err}"
+      - "shipy.stack.json=${SHIPY_STACK_JSON:?err}"
+      - "shipy.stack.service.number=1"
+      - "shipy.stack.service.name=${COMPOSE_PROJECT_NAME:?err}_node"
+      - "shipy.stack.service.version=${SHIPY_STACK_SERVICE_1_VERSION:-8.10}"
     networks:
       - nginx
     environment:
@@ -43,20 +43,20 @@ services:
       context: ./
       dockerfile: Dockerfile.nginx
       args:
-        VERSION: ${LIBREHOST_STACK_SERVICE_2_VERSION:-stable-alpine}
+        VERSION: ${SHIPY_STACK_SERVICE_2_VERSION:-stable-alpine}
     restart: always
     expose:
       - "80"
     labels:
-      # librehost labels must be present on all services
-      # librehost.stack.id must be equal the name of the repository
-      - "librehost.stack.id=nodenginx"
-      - "librehost.stack.name=${COMPOSE_PROJECT_NAME:?err}"
-      - "librehost.stack.domains=${LIBREHOST_STACK_DOMAINS:?err}"
-      - "librehost.stack.json=${LIBREHOST_STACK_JSON:?err}"
-      - "librehost.stack.service.number=2"
-      - "librehost.stack.service.name=${COMPOSE_PROJECT_NAME:?err}_nginx"
-      - "librehost.stack.service.version=${LIBREHOST_STACK_SERVICE_2_VERSION:-stable-alpine}"
+      # shipy labels must be present on all services
+      # shipy.stack.id must be equal the name of the repository
+      - "shipy.stack.id=nodenginx"
+      - "shipy.stack.name=${COMPOSE_PROJECT_NAME:?err}"
+      - "shipy.stack.domains=${SHIPY_STACK_DOMAINS:?err}"
+      - "shipy.stack.json=${SHIPY_STACK_JSON:?err}"
+      - "shipy.stack.service.number=2"
+      - "shipy.stack.service.name=${COMPOSE_PROJECT_NAME:?err}_nginx"
+      - "shipy.stack.service.version=${SHIPY_STACK_SERVICE_2_VERSION:-stable-alpine}"
       # https://docs.traefik.io/configuration/backends/docker/
       - "traefik.enable=true"
       - "traefik.backend=${COMPOSE_PROJECT_NAME:?err}_nginx"
@@ -65,7 +65,7 @@ services:
       #- "traefik.frontend.passHostHeader=true"
       - "traefik.${COMPOSE_PROJECT_NAME:?err}_nginx.frontend.passHostHeader=true"
       - "traefik.${COMPOSE_PROJECT_NAME:?err}_nginx.port=80"
-      - "traefik.${COMPOSE_PROJECT_NAME:?err}_nginx.frontend.rule=Host:${LIBREHOST_STACK_DOMAINS:?err}"
+      - "traefik.${COMPOSE_PROJECT_NAME:?err}_nginx.frontend.rule=Host:${SHIPY_STACK_DOMAINS:?err}"
     #healthcheck:
       #disable: true # if marked as unhealty reverseproxy will stop. 
 
