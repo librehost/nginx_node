@@ -26,6 +26,7 @@ services:
       - nginx
     env_file:
       - .env
+    # environment overrides env_files vars
     environment:
       - PORT=8080
     healthcheck:
