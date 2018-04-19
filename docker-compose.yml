@@ -24,6 +24,8 @@ services:
       - "shipy.stack.service.version=${SHIPY_STACK_SERVICE_1_VERSION:-8.10}"
     networks:
       - nginx
+    env_file:
+      - .env
     environment:
       - PORT=8080
     healthcheck:
@@ -47,6 +49,8 @@ services:
     restart: always
     expose:
       - "80"
+    env_file:
+      - .env
     labels:
       # shipy labels must be present on all services
       # shipy.stack.id must be equal the name of the repository
