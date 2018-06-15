@@ -8,7 +8,7 @@ services:
       context: ./
       dockerfile: Dockerfile.node
       args:
-        VERSION: ${SHIPY_STACK_SERVICE_1_VERSION:-8.10}
+        VERSION: ${SHIPY_STACK_SERVICE_1_VERSION:-latest}
     restart: always
     expose:
       - "8080"
@@ -21,7 +21,7 @@ services:
       - "shipy.stack.json=${SHIPY_STACK_JSON:?err}"
       - "shipy.stack.service.number=1"
       - "shipy.stack.service.name=${COMPOSE_PROJECT_NAME:?err}_node"
-      - "shipy.stack.service.version=${SHIPY_STACK_SERVICE_1_VERSION:-8.10}"
+      - "shipy.stack.service.version=${SHIPY_STACK_SERVICE_1_VERSION:-latest}"
     networks:
       - nginx
     env_file:
@@ -46,7 +46,7 @@ services:
       context: ./
       dockerfile: Dockerfile.nginx
       args:
-        VERSION: ${SHIPY_STACK_SERVICE_2_VERSION:-stable-alpine}
+        VERSION: ${SHIPY_STACK_SERVICE_2_VERSION:-stable}
     restart: always
     expose:
       - "80"
@@ -61,7 +61,7 @@ services:
       - "shipy.stack.json=${SHIPY_STACK_JSON:?err}"
       - "shipy.stack.service.number=2"
       - "shipy.stack.service.name=${COMPOSE_PROJECT_NAME:?err}_nginx"
-      - "shipy.stack.service.version=${SHIPY_STACK_SERVICE_2_VERSION:-stable-alpine}"
+      - "shipy.stack.service.version=${SHIPY_STACK_SERVICE_2_VERSION:-stable}"
       # https://docs.traefik.io/configuration/backends/docker/
       - "traefik.enable=true"
       - "traefik.backend=${COMPOSE_PROJECT_NAME:?err}_nginx"
