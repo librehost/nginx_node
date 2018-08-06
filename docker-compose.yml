@@ -26,6 +26,7 @@ services:
       - "shipy.stack.service.version=${SHIPY_STACK_SERVICE_1_VERSION:-latest}"
     networks:
       - nginx
+      - database
     env_file:
       - .env
     # environment overrides env_files vars
