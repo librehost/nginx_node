@@ -48,6 +48,8 @@ services:
     networks:
       - reverseproxy
       - nginx
+    volumes:
+      - nginxconf:/etc/nginx
     build:
       context: ./
       dockerfile: Dockerfile.nginx
@@ -90,3 +92,6 @@ networks:
   database:
     external: true
     name: database # named networks will not get removed on container update/removal
+
+volumes:
+  nginxconf:
