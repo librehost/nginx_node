@@ -27,8 +27,14 @@ services:
       - "shipy.stack.service.name=node"
       - "shipy.stack.service.version=${SHIPY_STACK_SERVICE_1_VERSION:-latest}"
     networks:
-      - nginx
-      - database
+      nginx:
+        aliases:
+         # alias with pattern PROJECTNAME_SERVICENAME must be present on all networks
+         - ${COMPOSE_PROJECT_NAME:?err}_node
+      database:
+        aliases:
+         # alias with pattern PROJECTNAME_SERVICENAME must be present on all networks
+         - ${COMPOSE_PROJECT_NAME:?err}_node
     env_file:
       - .env
     # environment overrides env_files vars
@@ -46,8 +52,14 @@ services:
   nginx:
     mem_limit: ${SHIPY_STACK_SERVICE_2_MEMORY_LIMIT:-1000000000}
     networks:
-      - reverseproxy
-      - nginx
+      reverseproxy:
+        aliases:
+         # alias with pattern PROJECTNAME_SERVICENAME must be present on all networks
+         - ${COMPOSE_PROJECT_NAME:?err}_nginx
+      nginx:
+        aliases:
+         # alias with pattern PROJECTNAME_SERVICENAME must be present on all networks
+         - ${COMPOSE_PROJECT_NAME:?err}_nginx
     volumes:
       - nginxconf:/etc/nginx
     build:
